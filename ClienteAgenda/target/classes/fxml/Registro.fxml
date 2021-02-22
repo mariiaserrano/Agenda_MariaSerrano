@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fx.controllers.RegistroController">
+   <children>
+      <Label layoutX="188.0" layoutY="14.0" text="REGISTRO">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Label>
+      <Label layoutX="88.0" layoutY="121.0" text="Usuario">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="88.0" layoutY="184.0" text="Contraseña">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="90.0" layoutY="244.0" text="Confirmar Contraseña">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <TextField fx:id="fxUsuarioRegistro" layoutX="326.0" layoutY="126.0" />
+      <PasswordField fx:id="fxContrasenaRegistro" layoutX="326.0" layoutY="189.0" />
+      <PasswordField fx:id="fxContrasenaConfir" layoutX="326.0" layoutY="249.0" />
+      <Button layoutX="274.0" layoutY="324.0" mnemonicParsing="false" onAction="#registro" text="Añadir" />
+   </children>
+</AnchorPane>
