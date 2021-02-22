@@ -54,8 +54,6 @@ public class Certificados {
             ks.store(fos,"".toCharArray());
             fos.close();
 
-
-
             usuario.getUsuario().setRutaCert(webInfPath+"/"+usuario.getUsuario().getUsuario()+"Certificado.pfx");
             sl.updateRutaCert(usuario);
         } catch (Exception e) {

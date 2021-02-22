@@ -10,4 +10,7 @@ import lombok.*;
 public class UsuarioRegistro {
     private Usuario usuario;
     private String clavePublica;
+
+
+
 }

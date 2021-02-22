@@ -3,6 +3,7 @@ package rest;
 import encriptacion.Certificados;
 import encriptacion.Claves;
 import model.Usuario;
+import model.UsuarioLogin;
 import model.UsuarioRegistro;
 import servicios.ServiciosUsuarios;
 
@@ -32,6 +33,11 @@ public class RestUsuarios {
     @POST
     public UsuarioRegistro addUsuario(UsuarioRegistro usuario) {
             return sl.addUsuario(usuario,request).get();
+    }
+
+    @GET
+    public Usuario login (Usuario login){
+        return sl.login(login).get();
     }
 
 

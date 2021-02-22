@@ -42,10 +42,7 @@ public class RegistroController implements Initializable {
                 Single<Either<ApiError, UsuarioRegistro>> s = Single.fromCallable(() ->
                 {
                     ServiciosUsuarios serviciosUsuarios = new ServiciosUsuarios();
-                    //Claves cl = new Claves();
                     return serviciosUsuarios.addUsuario(new Usuario(fxUsuarioRegistro.getText(), fxContrasenaConfir.getText(),""));
-                   // return cl.generarClaves(new Usuario(fxUsuarioRegistro.getText(), fxContrasenaConfir.getText()));
-
 
                 })
                         .subscribeOn(Schedulers.io())
@@ -55,6 +52,7 @@ public class RegistroController implements Initializable {
                 s.subscribe(result -> result.peek(acierto -> {
                             alert.setContentText("Registrado correctamente");
                             alert.showAndWait();
+                            limpiar();
                         })
                                 .peekLeft(error -> {
                                     alert.setContentText(error.getMessage());
@@ -75,6 +73,12 @@ public class RegistroController implements Initializable {
             alert.showAndWait();
         }
 
+    }
+
+    public void limpiar(){
+        fxUsuarioRegistro.clear();
+        fxContrasenaRegistro.clear();
+        fxContrasenaConfir.clear();
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {

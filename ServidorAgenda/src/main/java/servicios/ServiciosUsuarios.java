@@ -29,6 +29,7 @@ public class ServiciosUsuarios {
         }
         return dao.addUsuario(usuario);
     }
+
     public Either<String, UsuarioRegistro> updateRutaCert(UsuarioRegistro usuario) {
         final StringBuilder error = new StringBuilder();
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -40,6 +41,19 @@ public class ServiciosUsuarios {
             throw new MiException(error.toString());
         }
         return dao.updateRutaCert(usuario);
+    }
+
+    public Either<String, Usuario> login (Usuario login){
+        final StringBuilder error = new StringBuilder();
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        validator.validate(login).stream().forEach(
+                testDtoConstraintViolation ->
+                        error.append(testDtoConstraintViolation.getMessage()));
+        if (!error.toString().isEmpty()) {
+            throw new MiException(error.toString());
+        }
+        return dao.login(login);
     }
 
 }

@@ -2,11 +2,14 @@ package dao;
 
 import io.vavr.control.Either;
 import model.Usuario;
+import model.UsuarioLogin;
 import model.UsuarioRegistro;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +17,7 @@ import java.util.logging.Logger;
 public class DaoUsuarios {
     private static final String QUERY_INSERT_USUARIO = "insert into usuario (nombre,rutaCert) values (?,?)";
     private static final String QUERY_UPDATE_USUARIO = "update usuario set rutaCert=? where nombre=?";
+    private static final String QUERY_SELECT_LOGIN = "SELECT * FROM Agenda_Maria.usuario where nombre=?";
 
 
     public Either<String, UsuarioRegistro> addUsuario(UsuarioRegistro usuario) {
@@ -29,7 +33,7 @@ public class DaoUsuarios {
 
             stmt = con.prepareStatement(QUERY_INSERT_USUARIO);
             stmt.setString(1, usuario.getUsuario().getUsuario());
-            stmt.setString(2,usuario.getUsuario().getRutaCert());
+            stmt.setString(2, usuario.getUsuario().getRutaCert());
 
             int filasAnadidas = -1;
             filasAnadidas = stmt.executeUpdate();
@@ -90,6 +94,42 @@ public class DaoUsuarios {
 
         return result.get();
 
+    }
+
+    public Either<String, Usuario> login(Usuario login) {
+        Either<String, Usuario> resultado = null;
+        DBConnection dbConnection = new DBConnection();
+        ResultSet resultSet = null;
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try {
+            con = dbConnection.getConnection();
+
+            stmt = con.prepareStatement(QUERY_SELECT_LOGIN);
+            stmt.setString(1,login.getUsuario());
+
+            resultSet = stmt.executeQuery();
+
+
+            while (resultSet.next()) {
+                login = new Usuario(resultSet.getString(2), resultSet.getString(3));
+                resultado = Either.right(login);
+
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DaoUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(DaoUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            dbConnection.cerrarConexion(con);
+            dbConnection.cerrarResultSet(resultSet);
+            dbConnection.cerrarStatement(stmt);
+
+        }
+
+        return resultado;
     }
 
 }
