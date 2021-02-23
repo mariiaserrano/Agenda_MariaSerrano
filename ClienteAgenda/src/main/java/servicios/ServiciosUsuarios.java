@@ -2,6 +2,7 @@ package servicios;
 
 import dao.DaoUsuarios;
 import encriptacion.Claves;
+import encriptacion.Firma;
 import io.vavr.control.Either;
 import model.Usuario;
 import model.UsuarioLogin;
@@ -13,6 +14,7 @@ import java.security.PublicKey;
 public class ServiciosUsuarios {
     private DaoUsuarios dao = new DaoUsuarios();
     private Claves cl = new Claves();
+    private Firma fr = new Firma();
 
 
     public Either<ApiError, UsuarioRegistro> addUsuario(Usuario usu) {
@@ -21,6 +23,7 @@ public class ServiciosUsuarios {
     }
 
     public Either<ApiError, String> login (UsuarioLogin login){
+        fr.firmaNombre(login);
         return dao.login(login);
     }
 }

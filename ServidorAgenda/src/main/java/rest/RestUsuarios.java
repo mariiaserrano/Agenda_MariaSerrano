@@ -2,6 +2,7 @@ package rest;
 
 import encriptacion.Certificados;
 import encriptacion.Claves;
+import encriptacion.Firma;
 import model.Usuario;
 import model.UsuarioLogin;
 import model.UsuarioRegistro;
@@ -25,6 +26,8 @@ import java.util.List;
 public class RestUsuarios {
 
     private ServiciosUsuarios sl = new ServiciosUsuarios();
+    private Claves cl = new Claves();
+    private Firma fr = new Firma();
 
     @Context
     HttpServletRequest request;
@@ -36,8 +39,17 @@ public class RestUsuarios {
     }
 
     @GET
-    public Usuario login (Usuario login){
-        return sl.login(login).get();
+    public Usuario login (@QueryParam("nombre") String nombre, @QueryParam("firma") String firma){
+        Usuario usuario = new Usuario(nombre,"","");
+//        String ruta = sl.login(usuario).get().getRutaCert();
+        UsuarioLogin usuarioLogin = new UsuarioLogin(nombre,firma,"");
+//        usuario.setRutaCert(ruta);
+//        cl.getClavePublicaCert(usuario);
+//        System.out.println(cl.getClavePublicaCert(usuario));
+        fr.comprobarFirma(cl.getClavePublicaCert(usuario),usuarioLogin);
+        System.out.println(fr.comprobarFirma(cl.getClavePublicaCert(usuario),usuarioLogin));
+
+        return sl.login(usuario).get();
     }
 
 

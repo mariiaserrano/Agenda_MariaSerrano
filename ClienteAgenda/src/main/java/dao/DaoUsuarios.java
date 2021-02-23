@@ -70,14 +70,13 @@ public class DaoUsuarios {
 
         ApiUsuario usuariosApi = retrofit.create(ApiUsuario.class);
 
-        Call<UsuarioLogin> call = usuariosApi.login(login);
+        Call<UsuarioLogin> call = usuariosApi.login(login.getNombre(),login.getFirma());
         try {
             Response<UsuarioLogin> response = call.execute();
             if (response.isSuccessful())
             {
-
-
-                resultado = Either.right(response.body().getFirma());
+                resultado = Either.right(response.body().toString());
+                System.out.println(response.body());
             }
             else
             {

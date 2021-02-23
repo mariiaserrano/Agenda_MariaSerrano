@@ -3,10 +3,12 @@ package encriptacion;
 import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 import model.Usuario;
+import model.UsuarioLogin;
 import org.bouncycastle.jce.X509Principal;
 import org.bouncycastle.x509.X509V3CertificateGenerator;
 import retrofit.ApiError;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.math.BigInteger;
 import java.security.*;
@@ -78,5 +80,36 @@ public class Claves {
 
         }
         return resultado;
+    }
+
+    public PrivateKey getClavePrivada(UsuarioLogin usuario) {
+        PrivateKey clavePrivadaRecuperada = null;
+        try {
+            KeyStore ksLoad = KeyStore.getInstance("PKCS12");
+            ksLoad.load(new FileInputStream("archivos/" + usuario.getNombre() + ".pfx"), "".toCharArray());
+            KeyStore.PasswordProtection pt = new KeyStore.PasswordProtection(usuario.getPass().toCharArray());
+            KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) ksLoad.getEntry(usuario.getNombre() + "privada", pt);
+
+            clavePrivadaRecuperada = privateKeyEntry.getPrivateKey();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return clavePrivadaRecuperada;
+
+    }
+
+    public PublicKey getClavePublica(UsuarioLogin usuario) {
+        Either<String, PublicKey> resultado = null;
+        PublicKey clavePublicaRecuperada = null;
+        try {
+            KeyStore ksLoad = KeyStore.getInstance("PKCS12");
+            ksLoad.load(new FileInputStream("archivos/" + usuario.getNombre() + ".pfx"), "".toCharArray());
+            X509Certificate certLoad = (X509Certificate) ksLoad.getCertificate(usuario.getNombre() + "publica");
+            clavePublicaRecuperada = certLoad.getPublicKey();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return clavePublicaRecuperada;
+
     }
 }

@@ -10,4 +10,5 @@ import lombok.*;
 public class UsuarioLogin {
     private String nombre;
     private String firma;
+    private String pass;
 }

@@ -1,6 +1,7 @@
 package encriptacion;
 
 import lombok.extern.log4j.Log4j2;
+import model.Usuario;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.Context;
@@ -61,5 +62,19 @@ public class Claves {
             log.error(e.getMessage(),e);
         }
         return clavePublicaServidor;
+    }
+
+    public PublicKey getClavePublicaCert(Usuario usuario){
+        PublicKey clavePublicaCertificado = null;
+
+        try {
+            KeyStore ksLoad = KeyStore.getInstance("PKCS12");
+            ksLoad.load(new FileInputStream(usuario.getRutaCert()), "".toCharArray());
+            X509Certificate certLoad = (X509Certificate) ksLoad.getCertificate("publica");
+            clavePublicaCertificado = certLoad.getPublicKey();
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+        }
+        return clavePublicaCertificado;
     }
 }

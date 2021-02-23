@@ -2,6 +2,7 @@ package encriptacion;
 
 import lombok.extern.log4j.Log4j2;
 import model.Usuario;
+import model.UsuarioLogin;
 import model.UsuarioRegistro;
 import org.bouncycastle.jce.X509Principal;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -61,5 +62,11 @@ public class Certificados {
         }
         return cert;
 
+    }
+
+    public Boolean comprobarCertificado(String ruta, UsuarioLogin usuario){
+        Boolean combprobado = false;
+
+        return combprobado;
     }
 }
