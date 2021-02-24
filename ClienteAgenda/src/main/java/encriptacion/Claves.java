@@ -17,6 +17,7 @@ import java.security.cert.X509Certificate;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
+import java.util.Base64;
 import java.util.Date;
 
 @Log4j2
@@ -98,18 +99,21 @@ public class Claves {
 
     }
 
-    public PublicKey getClavePublica(UsuarioLogin usuario) {
-        Either<String, PublicKey> resultado = null;
-        PublicKey clavePublicaRecuperada = null;
+    public Either<String, String> generarClaveSimetrica() {
+        Either<String, String> resultado = null;
         try {
-            KeyStore ksLoad = KeyStore.getInstance("PKCS12");
-            ksLoad.load(new FileInputStream("archivos/" + usuario.getNombre() + ".pfx"), "".toCharArray());
-            X509Certificate certLoad = (X509Certificate) ksLoad.getCertificate(usuario.getNombre() + "publica");
-            clavePublicaRecuperada = certLoad.getPublicKey();
+            SecureRandom sr = new SecureRandom();
+            byte[] clave = new byte[22];
+            sr.nextBytes(clave);
+            String claveSimetrica = Base64.getUrlEncoder().encodeToString(clave);
+            resultado = Either.right(claveSimetrica);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
+            resultado = Either.left(e.getMessage());
         }
-        return clavePublicaRecuperada;
+        return resultado;
+
 
     }
+
 }

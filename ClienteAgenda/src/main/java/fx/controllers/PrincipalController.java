@@ -7,12 +7,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import lombok.SneakyThrows;
+import model.ClienteCitas;
 import model.Usuario;
+import model.UsuarioLogin;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PrincipalController implements Initializable {
+
     private Alert alert;
     private AnchorPane pantallaLogin;
     private LoginController controller_login;
@@ -23,18 +26,33 @@ public class PrincipalController implements Initializable {
     private AnchorPane pantallaCitas;
     private CitasController controller_citas;
 
-    public Usuario getUsuario() {
-        return usuario;
+
+
+    private UsuarioLogin usuario;
+
+    public ClienteCitas getClaveCliente() {
+        return claveCliente;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setClaveCliente(ClienteCitas claveCliente) {
+        this.claveCliente = claveCliente;
     }
 
-    private Usuario usuario;
+    private ClienteCitas claveCliente;
 
     @FXML
     private BorderPane pantallaPrincipal;
+
+
+    public UsuarioLogin getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioLogin usuario) {
+        this.usuario = usuario;
+    }
+
+
 
     public BorderPane getPantallaPrincipal() {
         return pantallaPrincipal;

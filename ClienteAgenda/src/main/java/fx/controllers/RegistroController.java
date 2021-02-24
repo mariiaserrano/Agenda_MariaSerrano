@@ -36,6 +36,10 @@ public class RegistroController implements Initializable {
         this.principalController = principalController;
     }
 
+    public void volverLogin(){
+        principalController.cargarLogin();
+    }
+
     public void registro() {
         if(!fxUsuarioRegistro.getText().isEmpty() && !fxContrasenaRegistro.getText().isEmpty() && !fxContrasenaConfir.getText().isEmpty()) {
             if (fxContrasenaRegistro.getText().equals(fxContrasenaConfir.getText())) {
@@ -84,4 +88,6 @@ public class RegistroController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         alert = new Alert(Alert.AlertType.INFORMATION);
     }
+
+
 }

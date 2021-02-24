@@ -3,6 +3,7 @@ package dao;
 import com.google.gson.Gson;
 import encriptacion.Claves;
 import io.vavr.control.Either;
+import model.ClienteCitas;
 import model.Usuario;
 import model.UsuarioLogin;
 import model.UsuarioRegistro;
@@ -23,6 +24,7 @@ import java.util.List;
 public class DaoUsuarios {
 
     private Claves cl = new Claves();
+
 
     public Either<ApiError, UsuarioRegistro> addUsuario(Usuario usuario) {
     Either<ApiError, UsuarioRegistro> resultado = null;
@@ -63,20 +65,19 @@ public class DaoUsuarios {
     return resultado;
 }
 
-    public Either<ApiError, String> login(UsuarioLogin login) {
-        Either<ApiError, String> resultado = null;
+    public Either<ApiError, ClienteCitas> login(UsuarioLogin login) {
+        Either<ApiError, ClienteCitas> resultado = null;
 
         Retrofit retrofit = ConfigurationSingleton_OkHttpClient.getInstance();
 
         ApiUsuario usuariosApi = retrofit.create(ApiUsuario.class);
 
-        Call<UsuarioLogin> call = usuariosApi.login(login.getNombre(),login.getFirma());
+        Call<ClienteCitas> call = usuariosApi.login(login.getNombre(),login.getFirma());
         try {
-            Response<UsuarioLogin> response = call.execute();
+            Response<ClienteCitas> response = call.execute();
             if (response.isSuccessful())
             {
-                resultado = Either.right(response.body().toString());
-                System.out.println(response.body());
+                resultado = Either.right(response.body());
             }
             else
             {

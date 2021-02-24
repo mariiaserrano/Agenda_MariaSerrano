@@ -4,6 +4,7 @@ import dao.DaoUsuarios;
 import encriptacion.Claves;
 import encriptacion.Firma;
 import io.vavr.control.Either;
+import model.ClienteCitas;
 import model.Usuario;
 import model.UsuarioLogin;
 import model.UsuarioRegistro;
@@ -22,7 +23,7 @@ public class ServiciosUsuarios {
         return dao.addUsuario(usu);
     }
 
-    public Either<ApiError, String> login (UsuarioLogin login){
+    public Either<ApiError, ClienteCitas> login (UsuarioLogin login){
         fr.firmaNombre(login);
         return dao.login(login);
     }

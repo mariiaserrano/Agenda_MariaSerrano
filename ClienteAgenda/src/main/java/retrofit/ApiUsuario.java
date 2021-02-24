@@ -1,5 +1,6 @@
 package retrofit;
 
+import model.ClienteCitas;
 import model.Usuario;
 import model.UsuarioLogin;
 import model.UsuarioRegistro;
@@ -14,6 +15,6 @@ public interface ApiUsuario {
     Call<UsuarioRegistro> addUser(@Body UsuarioRegistro usuario);
 
     @GET("usuario")
-    Call<UsuarioLogin> login(@Query("nombre") String nombre, @Query("firma") String firma);
+    Call<ClienteCitas> login(@Query("nombre") String nombre, @Query("firma") String firma);
 
 }

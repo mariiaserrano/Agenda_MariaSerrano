@@ -1,0 +1,19 @@
+package encriptacion;
+
+import java.security.SecureRandom;
+
+public class Seguridad {
+    public byte[] getIv() {
+        SecureRandom sr = new SecureRandom();
+        byte[] iv = new byte[12];
+        sr.nextBytes(iv);
+        return iv;
+    }
+
+    public byte[] getSalt(){
+        SecureRandom sr = new SecureRandom();
+        byte[] salt = new byte[16];
+        sr.nextBytes(salt);
+        return salt;
+    }
+}

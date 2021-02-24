@@ -9,7 +9,20 @@
             <tabs>
                 <Tab text="Citas">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="39.0" text="Lugar" />
+                        <Label layoutX="15.0" layoutY="85.0" text="Fecha" />
+                        <Label layoutX="17.0" layoutY="136.0" text="Descripcion" />
+                        <TextField fx:id="fxLugarCita" layoutX="86.0" layoutY="35.0" />
+                        <TextField fx:id="fxFechaCita" layoutX="86.0" layoutY="81.0" />
+                        <TextArea fx:id="fxDescCita" layoutX="86.0" layoutY="124.0" prefHeight="59.0" prefWidth="200.0" />
+                        <Button layoutX="64.0" layoutY="211.0" mnemonicParsing="false" onAction="#crearCita" text="Crear" />
+                        <ListView fx:id="fxListaCitas" layoutX="315.0" layoutY="36.0" prefHeight="200.0" prefWidth="265.0" />
+                        <Label layoutX="315.0" layoutY="14.0" text="Lista de Citas" />
+                        <Button layoutX="522.0" layoutY="246.0" mnemonicParsing="false" text="Borrar" />
+                        <Button layoutX="173.0" layoutY="211.0" mnemonicParsing="false" text="Actualizar" />
+                     </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab text="Mensajes">
